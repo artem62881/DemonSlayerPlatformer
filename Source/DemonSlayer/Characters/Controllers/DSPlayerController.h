@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "UI/PlayerHUDWidget.h"
 #include "DSPlayerController.generated.h"
 
 /**
@@ -23,10 +24,14 @@ protected:
 	virtual void BeginPlay() override;
 	
 	virtual void SetupInputComponent() override;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<class UPlayerHUDWidget> PlayerHUDWidgetClass;
 
 private:
 	TSoftObjectPtr<ADSPlayerCharacter> CachedPlayer;
-
+	class UPlayerHUDWidget* PlayerHUDWidget = nullptr;
+		
 	void Jump();
 	void StopJumping();
 	void ChangeCrouchState();
@@ -37,5 +42,6 @@ private:
 
 	void TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location);
 	void TouchStopped(const ETouchIndex::Type FingerIndex, const FVector Location);
-	
+
+	void CreateAndInitWidgets();
 };

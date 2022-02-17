@@ -85,9 +85,12 @@ protected:
 	void UpdateCharacter();
 	
 #if WITH_EDITORONLY_DATA
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = General)
 	bool bDrawDebug = false;
 #endif
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = General)
+	FLinearColor DamageColor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Attributes, meta = (UIMin = 0.f, ClampMin = 0.f))
 	float MaxHealth = 100.f;
@@ -106,7 +109,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Movement)
 	float DefaultFallDamage = 10.f;
-	
+
 public:
 	ADemonSlayerCharacter();
 
@@ -141,6 +144,8 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	bool IsAttacking() const { return bIsAttacking; };
+
+	float GetHealthPercent() const { return Health/MaxHealth; };
 	
 private:
 	bool bIsAnimMontagePlaying = false;
@@ -154,7 +159,7 @@ private:
 	float Health = 0.f;
 
 	float CurrentApex = 0.f;
-
+	
 	FTimerHandle DestroyTimer;
 
 	void DestroyActor();

@@ -9,6 +9,7 @@ void ADSPlayerController::SetPawn(APawn* InPawn)
 {
 	Super::SetPawn(InPawn);
 	CachedPlayer = Cast<ADSPlayerCharacter>(InPawn);
+	CreateAndInitWidgets();
 }
 
 void ADSPlayerController::BeginPlay()
@@ -98,4 +99,17 @@ void ADSPlayerController::TouchStopped(const ETouchIndex::Type FingerIndex, cons
 	{
 		CachedPlayer->StopJumping();
 	}
+}
+
+void ADSPlayerController::CreateAndInitWidgets()
+{
+	if (!PlayerHUDWidget)
+	{
+		PlayerHUDWidget = CreateWidget<UPlayerHUDWidget>(GetWorld(), PlayerHUDWidgetClass);
+		if (PlayerHUDWidget)
+		{
+			PlayerHUDWidget->AddToViewport();
+		}
+	}
+
 }
