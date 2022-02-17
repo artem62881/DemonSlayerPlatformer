@@ -3,3 +3,7 @@
 
 #include "DSAICharacter.h"
 
+ADSAICharacter::ADSAICharacter()
+{
+	PatrollingComponent = CreateDefaultSubobject<UAIPatrollingComponent>(TEXT("AIPatrollingComponent"));
+}
